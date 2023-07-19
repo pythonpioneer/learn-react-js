@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning JavaScript</title>
+
+    <!-- writing JavaScript here -->
+    <script>
+      "use strict";
+      let obj = {
+        number: 10,
+        boolean: true,
+        string: "This is string",
+        object: {
+          boolean: false,
+          number: 10.1,
+        },
+        func: function add(a, b) {
+          return a + b;
+        },
+      };
+
+      // adding an event listener
+      document.addEventListener("click", function click() {
+        alert("clicked");
+      });
+
+      // window object in javascript (this represent window object) (used globally or with arrow function)
+      console.log(this);
+
+      let obj1 = {
+        val: "i am value",
+        func: function get(number){
+            console.log(this);
+        }
+      }
+
+      // run a line after a perticular time
+      setTimeout(() => {
+        console.log("run a line after 3 seconds");
+      }, 3000);
+    </script>
+  </head>
+  <body>
+    <h3>Data types in JavaScript</h3>
+    <ul>
+      <li>Numbers</li>
+      <li>Objects</li>
+      <li>Boolean</li>
+      <li>String</li>
+      <li>Null</li>
+      <li>Undefined</li>
+    </ul>
+    <h3>Objects in JavaScript</h3>
+    <div id="only-for-click">
+      let obj = {<br />
+      number: 10,<br />
+      boolean: true,<br />
+      string: 'This is string',<br />
+      object: {<br />
+      boolean: false,<br />
+      number: 10.10,<br />
+      }<br />
+      }<br />
+    </div>
+  </body>
+</html>
