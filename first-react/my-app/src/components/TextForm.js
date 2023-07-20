@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Translation } from "react-i18next";
 
 /**
  * This component represent an Input area/field.
@@ -33,6 +32,11 @@ export default function TextForm(props) {
         setText('');
     }
 
+    // these language changing function will be created later
+    const handleAlert = () => {
+        alert('Created Later');
+    }
+
 
     return (
         <>
@@ -47,11 +51,11 @@ export default function TextForm(props) {
             <div className="container">
                 <button type="button" class="btn btn-primary" onClick={handleUpCase}>Convert to Uppercase</button>
                 <button type="button" class="btn btn-secondary" onClick={handleLowCase}>Convert to Lowercase</button>
-                <button type="button" class="btn btn-success" onClick={handleRemove}>Remove</button>
-                <button type="button" class="btn btn-danger">Hindi</button>
-                <button type="button" class="btn btn-warning">English</button>
-                <button type="button" class="btn btn-info">Spanish</button>
-                <button type="button" class="btn btn-dark">French</button>
+                <button type="button" class="btn btn-danger" onClick={handleRemove}>Remove</button>
+                <button type="button" class="btn btn-success" onClick={handleAlert}>Hindi</button>
+                <button type="button" class="btn btn-warning" onClick={handleAlert}>English</button>
+                <button type="button" class="btn btn-info" onClick={handleAlert}>Spanish</button>
+                <button type="button" class="btn btn-dark" onClick={handleAlert}>French</button>
             </div>
         </>
     );
