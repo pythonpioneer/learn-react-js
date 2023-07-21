@@ -32,6 +32,13 @@ export default function TextForm(props) {
         setText('');
     }
 
+    // handling event, when clicked on "copy"
+    const handleCopy = () => {
+        const copiedText = document.getElementById('my-box');
+        // copiedText.select();
+        navigator.clipboard.writeText(copiedText.value);
+    }
+
     // these language changing function will be created later
     const handleAlert = () => {
         alert('It Will be Created Later');
@@ -52,7 +59,7 @@ export default function TextForm(props) {
                 <button type="button" className="btn btn-primary" onClick={handleUpCase}>Convert to Uppercase</button>
                 <button type="button" className="btn btn-secondary" onClick={handleLowCase}>Convert to Lowercase</button>
                 <button type="button" className="btn btn-danger" onClick={handleRemove}>Remove</button>
-                <button type="button" className="btn btn-success" onClick={handleAlert}>Hindi</button>
+                <button type="button" className="btn btn-success" onClick={handleCopy}>Copy</button>
                 <button type="button" className="btn btn-warning" onClick={handleAlert}>English</button>
                 <button type="button" className="btn btn-info" onClick={handleAlert}>Spanish</button>
                 <button type="button" className="btn btn-dark" onClick={handleAlert}>French</button>

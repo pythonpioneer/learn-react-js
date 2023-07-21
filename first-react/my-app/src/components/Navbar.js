@@ -13,7 +13,7 @@ export default function Navbar(props) {
 
     // defining the state of the color
     const [colorModeStyle, setColorModeStyle] = useState({
-        color: 'black',
+        color: 'gray',
         backgroundColor: 'white',
     });
 
@@ -21,9 +21,9 @@ export default function Navbar(props) {
 
     // writing a function for enabling dark mode
     const handleColorMode = () => {
-        if (colorModeStyle.color == 'white') {
+        if (colorModeStyle.color === 'white') {
             setColorModeStyle({
-                color: 'black',
+                color: 'gray',
                 backgroundcolor: 'white',
             });
             setBtntext("Dark Mode");
@@ -31,7 +31,7 @@ export default function Navbar(props) {
         else {
             setColorModeStyle({
                 color: 'white',
-                backgroundColor: 'black',
+                backgroundColor: 'gray',
             });
             setBtntext("Light Mode");
         }
