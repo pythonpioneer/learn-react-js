@@ -34,7 +34,7 @@ export default function TextForm(props) {
 
     // these language changing function will be created later
     const handleAlert = () => {
-        alert('Created Later');
+        alert('It Will be Created Later');
     }
 
 
@@ -49,14 +49,17 @@ export default function TextForm(props) {
                 </div>
             </form>
             <div className="container">
-                <button type="button" class="btn btn-primary" onClick={handleUpCase}>Convert to Uppercase</button>
-                <button type="button" class="btn btn-secondary" onClick={handleLowCase}>Convert to Lowercase</button>
-                <button type="button" class="btn btn-danger" onClick={handleRemove}>Remove</button>
-                <button type="button" class="btn btn-success" onClick={handleAlert}>Hindi</button>
-                <button type="button" class="btn btn-warning" onClick={handleAlert}>English</button>
-                <button type="button" class="btn btn-info" onClick={handleAlert}>Spanish</button>
-                <button type="button" class="btn btn-dark" onClick={handleAlert}>French</button>
+                <button type="button" className="btn btn-primary" onClick={handleUpCase}>Convert to Uppercase</button>
+                <button type="button" className="btn btn-secondary" onClick={handleLowCase}>Convert to Lowercase</button>
+                <button type="button" className="btn btn-danger" onClick={handleRemove}>Remove</button>
+                <button type="button" className="btn btn-success" onClick={handleAlert}>Hindi</button>
+                <button type="button" className="btn btn-warning" onClick={handleAlert}>English</button>
+                <button type="button" className="btn btn-info" onClick={handleAlert}>Spanish</button>
+                <button type="button" className="btn btn-dark" onClick={handleAlert}>French</button>
             </div>
+            <p className='container'>
+                {text.split(" ").length-1} words and {text.length} characters
+            </p>
         </>
     );
 }
