@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
  * This component represent an Input area/field.
  * @param {string} heading - This is the heading for the input field. 
  * @param {number} size - It reprsent the number of rows given to textarea. 
+ * @param {string} colorMode - This define the color mode for the app.
  * @returns {JSX.Element} - A JSX element representing Input field.
  */
 export default function TextForm(props) {
@@ -46,16 +47,20 @@ export default function TextForm(props) {
 
 
     return (
-        <>
+        <div style={{ backgroundColor: props.colorMode === 'dark' ? 'darkslategray' : 'white' }}>
+
             <form>
-                <div className="form-group">
+                <div className="form-group" >
                     <div className="container">
-                        <h2>{props.heading}</h2>
-                        <textarea type="text" className="form-control" id="my-box" onChange={handleOnChange} rows={props.size} value={text}></textarea>
+                        <h2 style={{ color: props.colorMode === 'dark' ? 'white' : 'black' }}>{props.heading}</h2>
+                        <textarea type="text" className="form-control" id="my-box" onChange={handleOnChange} rows={props.size} value={text} style={{ backgroundColor: props.colorMode === 'dark' ? 'darkslategray' : 'white', color: props.colorMode === 'dark' ? 'white' : 'black' }}></textarea>
                     </div>
                 </div>
             </form>
-            <div className="container">
+            <div className="container" style={{
+                backgroundColor: props.colorMode === 'dark' ? 'darkslategray' : 'white', width: '100vw',
+                height: '48.4vh'
+            }}>
                 <button type="button" className="btn btn-primary" onClick={handleUpCase}>Convert to Uppercase</button>
                 <button type="button" className="btn btn-secondary" onClick={handleLowCase}>Convert to Lowercase</button>
                 <button type="button" className="btn btn-danger" onClick={handleRemove}>Remove</button>
@@ -63,11 +68,11 @@ export default function TextForm(props) {
                 <button type="button" className="btn btn-warning" onClick={handleAlert}>English</button>
                 <button type="button" className="btn btn-info" onClick={handleAlert}>Spanish</button>
                 <button type="button" className="btn btn-dark" onClick={handleAlert}>French</button>
+                <div className='container' style={{ backgroundColor: props.colorMode === 'dark' ? 'darkslategray' : 'white', color: props.colorMode === 'dark' ? 'white' : 'black' }}>
+                    {text.split(" ").length - 1} words and {text.length} characters
+                </div>
             </div>
-            <p className='container'>
-                {text.split(" ").length-1} words and {text.length} characters
-            </p>
-        </>
+        </div>
     );
 }
 
@@ -75,10 +80,12 @@ export default function TextForm(props) {
 TextForm.propTypes = {
     heading: PropTypes.string,
     size: PropTypes.number,
+    colorMode: PropTypes.string,
 }
 
 // setting the default value for the properties
 TextForm.defaultProps = {
     heading: "Enter your text here",
     size: 10,
+    colorMode: 'light',
 }
