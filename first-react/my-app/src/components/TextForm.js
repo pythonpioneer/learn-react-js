@@ -54,9 +54,9 @@ export default function TextForm(props) {
 
     // creating a method to handle html to jsx converter
     const convertHtmlToJsx = () => {
-        // const jsxCode = htmlToJSX(text);
-        // console.log(jsxCode);
-        // console.log(text);
+        const jsxCode = htmlToJSX(text);
+        console.log(jsxCode);
+        setText(jsxCode);
     }
 
 
@@ -108,24 +108,43 @@ TextForm.defaultProps = {
     colorMode: 'light',
 }
 
-// function htmlToJSX(html) {
-//     // Replace self-closing tags in HTML with equivalent JSX tags
-//     const jsx = html.replace(/<(\w+)\s*\/>/g, '<$1 />');
+function htmlToJSX(html) {
+    // Replace self-closing tags in HTML with equivalent JSX tags
+  const jsx = html.replace(/<(\w+)\s*\/>/g, '<$1 />');
 
-//     // Replace attributes in HTML tags with equivalent JSX attributes
-//     const jsxWithAttributes = jsx.replace(/(\w+)=(["'])(.*?)\2/g, '$1={$3}');
+  const jsxInputClosed = endInput(jsx);
+  
+  // Replace class attributes with className in JSX
+  const jsxWithClassName = jsxInputClosed.replace(/class=/g, 'className=');
+  
+  // Replace for attributes with htmlFor in JSX
+  const jsxWithHtmlFor = jsxWithClassName.replace(/for=/g, 'htmlFor=');
 
-//     // Replace class attributes with className in JSX
-//     const jsxWithClassName = jsxWithAttributes.replace(/class=/g, 'className=');
+  return jsxWithHtmlFor;
+}
 
-//     // Replace for attributes with htmlFor in JSX
-//     const jsxWithHtmlFor = jsxWithClassName.replace(/for=/g, 'htmlFor=');
+// creating a method to convert html to jsx
+function endInput(text) {
 
-//     return jsxWithHtmlFor;
-// }
+    // splitting string into list and find the input tag position
+    let lst = text.split('<input');
 
-//   // Example usage
-//   const htmlCode = '<div class="container"><h1>Title</h1><p>Hello, world!</p></div>';
-//   const jsxCode = htmlToJSX(htmlCode);
-//   console.log(jsxCode);
+    // now find '<' tag in every string, if not, it means there was '<input'
+    for (let tag in lst) {
+        if (lst[tag][0] !== '<') {
+
+            // now, find the greater than symbol in the string
+            let ss = lst[tag];
+            for (let idx in ss) {
+                if (ss[idx] === '>') {
+                    ss = "<input" + ss.slice(0, idx) + "/" + ss.slice(idx);
+                    lst[tag] = ss;
+                    break;
+                }
+            }
+        }
+    }
+    text = lst.join('');
+    return text;
+}
 
