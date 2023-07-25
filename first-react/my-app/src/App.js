@@ -25,6 +25,7 @@ function App() {
     <>
       <Navbar title="TextUtils" first="Home" second="About" colorMode={colorMode} toggleMode={toggleMode} />
       <TextForm colorMode={colorMode} />
+      
     </>
   );
 }
