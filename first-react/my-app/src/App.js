@@ -3,6 +3,8 @@ import './App.css';
 import Alert from './components/Alert';
 import Navbar from './components/Navbar';
 import TextForm from './components/TextForm';
+import About from './components/About';
+import { Routes, Route } from 'react-router-dom';
 
 // eslint-disable
 function App() {
@@ -40,7 +42,10 @@ function App() {
     <>
       <Navbar title="TextUtils" first="Home" second="About" colorMode={colorMode} toggleMode={toggleMode} />
       <Alert alertMsg={alertMsg}/>
-      <TextForm colorMode={colorMode} showAlertMsg={showAlertMsg}/>
+      <Routes>
+        <Route path="/" element={<TextForm colorMode={colorMode} showAlertMsg={showAlertMsg} />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </>
   );
 }

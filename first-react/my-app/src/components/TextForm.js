@@ -59,7 +59,6 @@ export default function TextForm(props) {
         setText(jsxCode);
     }
 
-
     return (
         <div style={{ backgroundColor: props.colorMode === 'dark' ? 'darkslategray' : 'white' }}>
 
