@@ -86,7 +86,7 @@ export default function TextForm(props) {
                     backgroundColor: props.colorMode === 'dark' ? 'darkslategray' : 'white', color: props.colorMode === 'dark' ? 'white' : 'black',
                     height: '100%'
                 }}>
-                    {text.split(" ").length - 1} words and {text.length} characters
+                    {text.split(" ").filter((element) => { return element.length != 0 }).length} words and {text.length} characters
                 </div>
             </div>
         </div>
@@ -109,17 +109,17 @@ TextForm.defaultProps = {
 
 function htmlToJSX(html) {
     // Replace self-closing tags in HTML with equivalent JSX tags
-  const jsx = html.replace(/<(\w+)\s*\/>/g, '<$1 />');
+    const jsx = html.replace(/<(\w+)\s*\/>/g, '<$1 />');
 
-  const jsxInputClosed = endInput(jsx);
-  
-  // Replace class attributes with className in JSX
-  const jsxWithClassName = jsxInputClosed.replace(/class=/g, 'className=');
-  
-  // Replace for attributes with htmlFor in JSX
-  const jsxWithHtmlFor = jsxWithClassName.replace(/for=/g, 'htmlFor=');
+    const jsxInputClosed = endInput(jsx);
 
-  return jsxWithHtmlFor;
+    // Replace class attributes with className in JSX
+    const jsxWithClassName = jsxInputClosed.replace(/class=/g, 'className=');
+
+    // Replace for attributes with htmlFor in JSX
+    const jsxWithHtmlFor = jsxWithClassName.replace(/for=/g, 'htmlFor=');
+
+    return jsxWithHtmlFor;
 }
 
 // creating a method to convert html to jsx

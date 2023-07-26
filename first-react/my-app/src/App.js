@@ -43,8 +43,8 @@ function App() {
       <Navbar title="TextUtils" first="Home" second="About" colorMode={colorMode} toggleMode={toggleMode} />
       <Alert alertMsg={alertMsg}/>
       <Routes>
-        <Route path="/" element={<TextForm colorMode={colorMode} showAlertMsg={showAlertMsg} />} />
-        <Route path="/about" element={<About />} />
+        <Route exact path="/" element={<TextForm colorMode={colorMode} showAlertMsg={showAlertMsg} />} />
+        <Route exact path="/about" element={<About />} />
       </Routes>
     </>
   );
