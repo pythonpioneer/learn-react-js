@@ -204,9 +204,9 @@ export class News extends Component {
         "publishedAt": "2023-07-25T21:07:00Z",
         "content": "Alphabet stocks rose in after-hours trading on Tuesday after the Google parent companys second-quarter profits exceeded Wall Street expectations, amid a rebound in advertising dollars and the growing… [+3301 chars]"
     }]
-    
+
     // creating constructor and state
-    constructor(){
+    constructor() {
         super();
         this.state = {
             articles: this.articles,
@@ -217,15 +217,20 @@ export class News extends Component {
     render() {
         return (
             <div className='container my-4'>
+                <h2 className='container ml-4'>Get Your News - Top Headlines</h2>
 
                 <div className="row">
-                    <div className="col-md-4 ml-sd-4">
-                        <NewsItem title="India won the series"
-                            desc="This was very easy match and India won the series. But, still India lost the lead in WTC."
-                            imgUrl="https://a3.espncdn.com/combiner/i?img=%2Fphoto%2F2023%2F0725%2Fr1202007_1296x729_16%2D9.jpg" />
-                    </div>
+                    {this.articles.map((element) => {
+                        return <div className="col-md-4 ml-sd-4" key={element.url}>
+                            <NewsItem title={element.title}
+                                desc={element.description}
+                                imgUrl={element.urlToImage}
+                                newsUrl={element.url}
+                                />
+                        </div>
+                    })}
                 </div>
-                
+
             </div>
         )
     }
