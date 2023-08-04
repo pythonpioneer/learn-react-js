@@ -4,8 +4,18 @@ import NewsItem from './NewsItem';
 import Loading from './Loading';
 
 export class News extends Component {
-    static propTypes = {};
-    // articlesList = [];
+
+    // defining the types of props
+    static propTypes = {
+        pageSize: PropTypes.number,
+        category: PropTypes.string,
+    };
+
+    // setting the default of props
+    static defaultProps = {
+        pageSize: 9,
+        category: "general",
+    }
 
     // creating constructor and state
     constructor() {
@@ -21,7 +31,7 @@ export class News extends Component {
     handleNextPageClick = async () => {
         this.setState({loading: true});  // displaying spinner before fetching data from api
 
-        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
@@ -36,7 +46,7 @@ export class News extends Component {
     handlePrevPageClick = async () => {
         this.setState({loading: true});  // displaying spinner before fetching data from api
 
-        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
@@ -51,7 +61,8 @@ export class News extends Component {
     async componentDidMount() {
         this.setState({loading: true});  // displaying spinner before fetching data from api
 
-        let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+        console.log(this.props.category)
+        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
@@ -64,11 +75,13 @@ export class News extends Component {
 
     render() {
         return (
-            
             <div className='container my-4'>
-            
-                <h2 className='container ml-4'>Get Your News - Top Headlines</h2>
+                <h2 className='container ml-4'>Get Your News - {this.props.category}</h2>
+
+                {/* displaying spinner when api is fetching */}
                 {this.state.loading && <Loading/>}
+
+                {/* displaying the news on the card using loops */}
                 <div className="row">
                     {!this.state.loading && this.state.articles?.map((element) => {
                         return <div className="col-md-4 ml-sd-4" key={element.url}>
@@ -80,6 +93,8 @@ export class News extends Component {
                         </div>
                     })}
                 </div>
+
+                {/* buttons to navigate on next and previous articles */}
                 <div className="container d-flex justify-content-between">
                     <button disabled={this.state.page <= 1} className='btn btn-dark ml-4' onClick={this.handlePrevPageClick} >&larr; Previous</button>
                     <button disabled={Math.ceil(this.parsedData?.totalResults/this.props.pageSize) > this.state.page?false:true} className='btn btn-dark mr-4' onClick={this.handleNextPageClick} >Next &rarr;</button>
