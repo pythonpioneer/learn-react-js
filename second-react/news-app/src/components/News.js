@@ -1,26 +1,17 @@
-import PropTypes from 'prop-types'
-import React, { Component } from 'react'
-import NewsItem from './NewsItem'
+import PropTypes from 'prop-types';
+import React, { Component } from 'react';
+import NewsItem from './NewsItem';
+import Loading from './Loading';
 
 export class News extends Component {
-    static propTypes = {}
-    articlesList = [{
-        "source": { "id": null, "name": "The Athletic" },
-        "author": "The Athletic Staff",
-        "title": "Explaining cardiac arrest after Bronny James collapse: Is it common in young athletes? - The Athletic",
-        "description": "Here’s what we know about cardiac arrest and the typical medical response that follows.",
-        "url": "https://theathletic.com/4719835/2023/07/25/what-is-cardiac-arrest-bronny-james/",
-        "urlToImage": "https://cdn.theathletic.com/app/uploads/2023/07/25132712/USATSI_21079851-scaled.jpg",
-        "publishedAt": "2023-07-26T02:16:57Z",
-        "content": "USC freshman Bronny James suffered cardiac arrest during practice Monday, a family spokesperson confirmed to The Athletic in a statement Tuesday. James, the 18-year-old son of Lakers star LeBron Jame… [+4180 chars]"
-    },
-    ]
+    static propTypes = {};
+    // articlesList = [];
 
     // creating constructor and state
     constructor() {
         super();
         this.state = {
-            articles: this.articlesList,
+            articles: null,
             loading: false,
             page: 1,
         }
@@ -28,6 +19,8 @@ export class News extends Component {
 
     // displaying next page, when clicked on next button
     handleNextPageClick = async () => {
+        this.setState({loading: true});  // displaying spinner before fetching data from api
+
         let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
@@ -35,11 +28,14 @@ export class News extends Component {
         this.setState({
             articles: this.parsedData.articles,
             page: this.state.page + 1,
+            loading: false,  // hiding spinner, after fetching data from api
         });
     }
 
     // displaying previous page, when clicked on previous button
     handlePrevPageClick = async () => {
+        this.setState({loading: true});  // displaying spinner before fetching data from api
+
         let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
@@ -47,27 +43,34 @@ export class News extends Component {
         this.setState({
             articles: this.parsedData.articles,
             page: this.state.page - 1,
+            loading: false,  // hiding spinner, after fetching data from api
         });
     }
 
     // runs when everything executed
     async componentDidMount() {
+        this.setState({loading: true});  // displaying spinner before fetching data from api
+
         let url = `https://newsapi.org/v2/top-headlines?country=in&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
         this.setState({
-            articles: this.parsedData.articles
+            articles: this.parsedData.articles,
+            loading: false,  // hiding spinner, after fetching data from api
+
         });
     }
 
     render() {
         return (
+            
             <div className='container my-4'>
+            
                 <h2 className='container ml-4'>Get Your News - Top Headlines</h2>
-
+                {this.state.loading && <Loading/>}
                 <div className="row">
-                    {this.state.articles.map((element) => {
+                    {!this.state.loading && this.state.articles?.map((element) => {
                         return <div className="col-md-4 ml-sd-4" key={element.url}>
                             <NewsItem title={element.title}
                                 desc={element.description}
