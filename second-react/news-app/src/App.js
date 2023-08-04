@@ -21,9 +21,14 @@ export default class App extends Component {
     })
   }
 
-  // function to change home-category
+  // function to change home-category and getyournews category
   handleHomeCategory = (event) => {
-    this.setState({
+    if (event.currentTarget.textContent === "GetYourNews") {
+      this.setState({
+        category: ""
+      })
+    }
+    else this.setState({
       category: "general",
     })
   }
@@ -34,7 +39,11 @@ export default class App extends Component {
         <Navbar handleCategory={this.handleCategory} handleHomeCategory={this.handleHomeCategory} />
         <Routes>
 
-        {/* the key is mentioned below is to reload the page */}
+          {/* the key is mentioned below is to reload the page */}
+          <Route
+            exact path="/"
+            element={<News key={this.state.category} pageSize={18} category={this.state.category}
+            />} />
           <Route
             exact path={"/" + this.state.category}
             element={<News key={this.state.category} pageSize={18} category={this.state.category}

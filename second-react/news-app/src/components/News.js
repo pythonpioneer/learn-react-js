@@ -76,7 +76,7 @@ export class News extends Component {
     render() {
         return (
             <div className='container my-4'>
-                <h2 className='container ml-4'>Top Headlines - {this.props.category==='general'?"All":this.props.category}</h2>
+                <h2 className='container ml-4'>Top Headlines - {this.props.category==='general'||this.props.category===""?"All":this.props.category}</h2>
 
                 {/* displaying spinner when api is fetching */}
                 {this.state.loading && <Loading/>}
