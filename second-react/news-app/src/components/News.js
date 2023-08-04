@@ -31,7 +31,7 @@ export class News extends Component {
     handleNextPageClick = async () => {
         this.setState({loading: true});  // displaying spinner before fetching data from api
 
-        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
@@ -46,7 +46,7 @@ export class News extends Component {
     handlePrevPageClick = async () => {
         this.setState({loading: true});  // displaying spinner before fetching data from api
 
-        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
@@ -62,7 +62,7 @@ export class News extends Component {
         this.setState({loading: true});  // displaying spinner before fetching data from api
 
         console.log(this.props.category)
-        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
@@ -76,7 +76,7 @@ export class News extends Component {
     render() {
         return (
             <div className='container my-4'>
-                <h2 className='container ml-4'>Get Your News - {this.props.category}</h2>
+                <h2 className='container ml-4'>Top Headlines - {this.props.category==='general'?"All":this.props.category}</h2>
 
                 {/* displaying spinner when api is fetching */}
                 {this.state.loading && <Loading/>}

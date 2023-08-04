@@ -19,7 +19,7 @@ export class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item active">
-                                <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
+                                <Link className="nav-link" to="/general" onClick={this.props.handleHomeCategory}>Home <span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/business" onClick={this.props.handleCategory}>Business</Link>
@@ -29,11 +29,11 @@ export class Navbar extends Component {
                                     Categories
                                 </Link>
                                 <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                    <Link className="dropdown-item" onClick={this.props.handleCategory} to="/sports">sports</Link>
-                                    <Link className="dropdown-item" onClick={this.props.handleCategory} to="/entertainment">entertainment</Link>
+                                    <Link className="dropdown-item" onClick={this.props.handleCategory} to="/sports">Sports</Link>
+                                    <Link className="dropdown-item" onClick={this.props.handleCategory} to="/entertainment">Entertainment</Link>
                                     <div className="dropdown-divider"></div>
-                                    <Link className="dropdown-item" onClick={this.props.handleCategory} to="/health">health</Link>
-                                    <Link className="dropdown-item" onClick={this.props.handleCategory} to="/science">science</Link>
+                                    <Link className="dropdown-item" onClick={this.props.handleCategory} to="/health">Health</Link>
+                                    <Link className="dropdown-item" onClick={this.props.handleCategory} to="/science">Science</Link>
                                 </div>
                             </li>
                             <li className="nav-item">
