@@ -27,48 +27,35 @@ export class News extends Component {
         }
     }
 
-    // displaying next page, when clicked on next button
-    handleNextPageClick = async () => {
+    // fetching data from api and loading spinner, when clicked on next, prev and refresh
+    async updateApiData(val) {
         this.setState({loading: true});  // displaying spinner before fetching data from api
 
-        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page+1}&pageSize=${this.props.pageSize}`;
+        // fetching data from api
+        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
         this.setState({
             articles: this.parsedData.articles,
-            page: this.state.page + 1,
+            page: this.state.page + val,
             loading: false,  // hiding spinner, after fetching data from api
         });
+    }
+
+    // displaying next page, when clicked on next button
+    handleNextPageClick = async () => {
+        this.updateApiData(1);  // passed 1, moving forward to the next page
     }
 
     // displaying previous page, when clicked on previous button
     handlePrevPageClick = async () => {
-        this.setState({loading: true});  // displaying spinner before fetching data from api
-
-        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page-1}&pageSize=${this.props.pageSize}`;
-        let data = await fetch(url);
-        this.parsedData = await data.json();
-
-        this.setState({
-            articles: this.parsedData.articles,
-            page: this.state.page - 1,
-            loading: false,  // hiding spinner, after fetching data from api
-        });
+        this.updateApiData(-1);  // passed -1, movig backward to the previous page
     }
 
     // runs when everything executed
     async componentDidMount() {
-        this.setState({loading: true});  // displaying spinner before fetching data from api
-
-        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page}&pageSize=${this.props.pageSize}`;
-        let data = await fetch(url);
-        this.parsedData = await data.json();
-
-        this.setState({
-            articles: this.parsedData.articles,
-            loading: false,  // hiding spinner, after fetching data from api
-        });
+        this.updateApiData(0);  // passed 0, page movement not required
     }
 
     render() {
