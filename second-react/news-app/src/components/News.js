@@ -61,7 +61,6 @@ export class News extends Component {
     async componentDidMount() {
         this.setState({loading: true});  // displaying spinner before fetching data from api
 
-        console.log(this.props.category)
         let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
@@ -69,7 +68,6 @@ export class News extends Component {
         this.setState({
             articles: this.parsedData.articles,
             loading: false,  // hiding spinner, after fetching data from api
-
         });
     }
 
@@ -90,8 +88,8 @@ export class News extends Component {
                                 imgUrl={element.urlToImage}
                                 newsUrl={element.url}
                                 authorName={element.source.name}
+                                publishedAt={element.publishedAt}
                             />
-                            {console.log(element.source.name)}
                         </div>
                     })}
                 </div>

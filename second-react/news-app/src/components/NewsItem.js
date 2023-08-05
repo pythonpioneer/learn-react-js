@@ -7,7 +7,8 @@ export class NewsItem extends Component {
     render() {
 
         // accessing some props
-        let { title, desc, newsUrl, imgUrl, authorName } = this.props;
+        let { title, desc, newsUrl, imgUrl, authorName, publishedAt } = this.props;
+        let date = new Date(publishedAt);
 
         return (
             <>
@@ -19,7 +20,8 @@ export class NewsItem extends Component {
                         <div className="card-body">
                             <h5 className="card-title">{title?.slice(0, 40)}...</h5>
                             <p className="card-text">{desc?.slice(0, 50)}...</p>
-                            <a href={newsUrl} target="_blank" className="btn btn-sm btn-primary">Go somewhere</a>
+                            <a href={newsUrl} target="_blank" className="btn btn-sm btn-primary">Read More</a>
+                            <div style={{fontSize: '12px', margin: '3% 0 -5% 0'}}>{date.toDateString()}</div>
                         </div>
                     </div>
                 </div>
