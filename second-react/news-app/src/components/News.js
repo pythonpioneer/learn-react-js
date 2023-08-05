@@ -29,7 +29,7 @@ export class News extends Component {
 
     // fetching data from api and loading spinner, when clicked on next, prev and refresh
     async updateApiData(val) {
-        this.setState({loading: true});  // displaying spinner before fetching data from api
+        this.setState({loading: true});  // displaying spinner, before fetching data from api
 
         // fetching data from api
         let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
