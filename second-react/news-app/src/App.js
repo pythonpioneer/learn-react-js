@@ -11,7 +11,19 @@ export default class App extends Component {
     super();
     this.state = {
       category: "general",
+      searchText: "",
     }
+  }
+
+  // extracting search query from the input field
+  /* Uncaught TypeError: Cannot read properties of undefined (reading 'setState')
+    at getSearchQuery and this get solved by using arrow function
+   */
+  getSearchQuery = () => {
+
+    this.setState({
+      searchText: document.getElementById('search-box').value,
+    });
   }
 
   // function to change categories
@@ -33,20 +45,22 @@ export default class App extends Component {
     })
   }
 
+
   render() {
     return (
       <>
-        <Navbar handleCategory={this.handleCategory} handleHomeCategory={this.handleHomeCategory} />
+        {console.log(this.state.searchText)}
+        <Navbar handleCategory={this.handleCategory} handleHomeCategory={this.handleHomeCategory} getSearchQuery={this.getSearchQuery} />
         <Routes>
 
           {/* the key is mentioned below is to reload the page */}
           <Route
             exact path="/"
-            element={<News key={this.state.category} pageSize={18} category={this.state.category}
+            element={<News key={this.state.category} pageSize={18} category={this.state.category} searchText={this.state.searchText}
             />} />
           <Route
             exact path={"/" + this.state.category}
-            element={<News key={this.state.category} pageSize={18} category={this.state.category}
+            element={<News key={this.state.category} pageSize={18} category={this.state.category} searchText={this.state.searchText}
             />} />
         </Routes>
       </>

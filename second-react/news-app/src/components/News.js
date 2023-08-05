@@ -32,7 +32,7 @@ export class News extends Component {
         this.setState({loading: true});  // displaying spinner, before fetching data from api
 
         // fetching data from api
-        let url = `https://newsapi.org/v2/top-headlines?country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?q=${this.props.searchText}&country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
