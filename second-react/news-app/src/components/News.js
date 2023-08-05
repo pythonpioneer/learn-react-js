@@ -89,7 +89,9 @@ export class News extends Component {
                                 desc={element.description}
                                 imgUrl={element.urlToImage}
                                 newsUrl={element.url}
+                                authorName={element.source.name}
                             />
+                            {console.log(element.source.name)}
                         </div>
                     })}
                 </div>
