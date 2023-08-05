@@ -37,7 +37,7 @@ export class Navbar extends Component {
                                 </div>
                             </li>
                             <li className="nav-item">
-                                <Link className="nav-link" to="#">Disabled</Link>
+                                <Link className="nav-link" onClick={this.props.handleCategory} to="/technology">Technology</Link>
                             </li>
                         </ul>
                         
