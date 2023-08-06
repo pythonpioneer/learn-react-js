@@ -23,7 +23,7 @@ export class News extends Component {
         super();
         this.state = {
             articles: null,
-            loading: false,
+            loading: true,
             page: 1,
         }
     }
@@ -33,7 +33,7 @@ export class News extends Component {
         this.setState({ loading: true });  // displaying spinner, before fetching data from api
 
         // fetching data from api
-        let url = `https://newsapi.org/v2/top-headlines?q=${this.props.searchText}&country=in&category=${this.props.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?q=${this.props.searchText}&country=in&category=${this.props.category.toLowerCase()}&apiKey=90f92460b78b4a38a6e070c9417f63cb&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
@@ -44,53 +44,61 @@ export class News extends Component {
         });
     }
 
-    // displaying next page, when clicked on next button
-    handleNextPageClick = async () => {
-        this.updateApiData(1);  // passed 1, moving forward to the next page
-    }
-
-    // displaying previous page, when clicked on previous button
-    handlePrevPageClick = async () => {
-        this.updateApiData(-1);  // passed -1, movig backward to the previous page
-    }
-
     // runs when everything executed
     async componentDidMount() {
         this.updateApiData(0);  // passed 0, page movement not required
     }
 
+    // called when try to scroll more
+    fetchMoreData = async () => {
+        const val = 1;  // to increse the page size
+
+        // fetching data from api
+        let url = `https://newsapi.org/v2/top-headlines?q=${this.props.searchText}&country=in&category=${this.props.category.toLowerCase()}&apiKey=90f92460b78b4a38a6e070c9417f63cb&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
+        let data = await fetch(url);
+        this.parsedData = await data.json();
+
+        this.setState({
+            articles: this.state.articles.concat(this.parsedData.articles),
+            page: this.state.page + val,
+        });
+
+    }
+
     render() {
         return (
-            <div className='container my-4'>
-                <h2 className='container ml-4'>Top Headlines - {this.props.category === 'general' || this.props.category === "" ? "Global" : this.props.category}</h2>
+            <>
+                <div className='container my-4'>
+                    <h2 className='container ml-4'>Top Headlines - {this.props.category === 'general' || this.props.category === "" ? "Global" : this.props.category}</h2>
+                </div>
+                
+                {/* displaying loader when page refreshed */}
+                {this.state.loading && <Loading />}
                 <InfiniteScroll
                     dataLength={this.state?.articles == null ? 0 : this.state?.articles?.length}
-                    next={this.updateApiData(1)}
-                    hasMore={true}
+                    next={this.fetchMoreData}
+                    hasMore={this.state?.articles?.length < this.parsedData?.totalResults}
                     loader={<Loading />}
                 >
                     {/* displaying the news on the card using loops */}
-                    <div className="row">
-                        {!this.state.loading && this.state.articles?.map((element) => {
-                            return <div className="col-md-4 ml-sd-4" key={element.url}>
-                                <NewsItem title={element.title}
-                                    desc={element.description}
-                                    imgUrl={element.urlToImage}
-                                    newsUrl={element.url}
-                                    authorName={element.source.name}
-                                    publishedAt={element.publishedAt}
-                                />
-                            </div>
-                        })}
+                    <div className='container my-4'>
+
+                        <div className="row">
+                            {!this.state.loading && this.state.articles?.map((element) => {
+                                return <div className="col-md-4 ml-sd-4" key={element.url}>
+                                    <NewsItem title={element.title}
+                                        desc={element.description}
+                                        imgUrl={element.urlToImage}
+                                        newsUrl={element.url}
+                                        authorName={element.source.name}
+                                        publishedAt={element.publishedAt}
+                                    />
+                                </div>
+                            })}
+                        </div>
                     </div>
                 </InfiniteScroll>
-
-                {/* buttons to navigate on next and previous articles */}
-                {/* <div className="container d-flex justify-content-between">
-                    <button disabled={this.state.page <= 1} className='btn btn-dark ml-4' onClick={this.handlePrevPageClick} >&larr; Previous</button>
-                    <button disabled={Math.ceil(this.parsedData?.totalResults/this.props.pageSize) > this.state.page?false:true} className='btn btn-dark mr-4' onClick={() => {this.handleNextPageClick(); this.updateApiData(0);}} >Next &rarr;</button>
-                </div> */}
-            </div>
+            </>
         )
     }
 }

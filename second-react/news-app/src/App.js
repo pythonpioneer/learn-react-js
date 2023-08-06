@@ -12,7 +12,7 @@ export default class App extends Component {
     this.state = {
       category: "general",
       searchText: "",
-      pageSize: 18,
+      pageSize: 12,
     }
   }
 
