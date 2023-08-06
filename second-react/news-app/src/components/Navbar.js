@@ -6,7 +6,6 @@ export class Navbar extends Component {
     static propTypes = {
     };
 
-
     render() {
         return (
             <>
@@ -40,7 +39,11 @@ export class Navbar extends Component {
                                 <Link className="nav-link" onClick={this.props.handleCategory} to="/technology">Technology</Link>
                             </li>
                         </ul>
-                        
+                        <form className="form-inline my-2 my-lg-0">
+                            <input className="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="search-box" />
+                            <Link className="btn btn-outline-success my-2 my-sm-0" type="button" to="/search" onClick={() => {this.props.getSearchQuery();}}>Search</Link>
+                        </form>
+
                     </div>
                 </nav>
             </>
