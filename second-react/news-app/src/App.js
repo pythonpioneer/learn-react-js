@@ -16,17 +16,6 @@ export default class App extends Component {
     }
   }
 
-  // update api data
-  async updateApiSearchQuery() {
-
-    // fetching data from api
-    let url = `https://newsapi.org/v2/top-headlines?q=${this.state.searchText}&country=in&category=${this.state.category.toLowerCase()}&apiKey=40e43d4e18e54bd0acb81ab9cf897760&page=1&pageSize=${this.state.pageSize}`;
-    let data = await fetch(url);
-    this.parsedData = await data.json();
-
-    console.log(this.parsedData);
-  }
-
   // extracting search query from the input field
   /* Uncaught TypeError: Cannot read properties of undefined (reading 'setState')
     at getSearchQuery and this get solved by using arrow function
@@ -35,8 +24,6 @@ export default class App extends Component {
     this.setState({
       searchText: document.getElementById('search-box').value,
     });
-    this.updateApiSearchQuery();
-
   }
 
   // function to change categories
@@ -69,6 +56,10 @@ export default class App extends Component {
           <Route
             exact path="/"
             element={<News key={this.state.category} pageSize={this.state.pageSize} category={this.state.category} searchText={this.state.searchText}
+            />} />
+          <Route
+            exact path="/search"
+            element={<News key={this.state.category + "search"} pageSize={this.state.pageSize} category={this.state.category} searchText={this.state.searchText}
             />} />
           <Route
             exact path={"/" + this.state.category}
