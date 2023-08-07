@@ -14,7 +14,7 @@ export default class App extends Component {
       category: "general",
       searchText: "",
       pageSize: 12,
-      progress: 2,
+      progress: 10,
     }
   };
 
