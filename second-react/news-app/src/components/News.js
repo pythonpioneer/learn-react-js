@@ -26,15 +26,17 @@ export class News extends Component {
             loading: true,
             page: 1,
         }
-    }
+    };
 
     // fetching data from api and loading spinner, when clicked on next, prev and refresh
     async updateApiData(val) {
+        this.props.setProgress(40);
         this.setState({ loading: true });  // displaying spinner, before fetching data from api
 
         // fetching data from api
-        let url = `https://newsapi.org/v2/top-headlines?q=${this.props.searchText}&country=in&category=${this.props.category.toLowerCase()}&apiKey=90f92460b78b4a38a6e070c9417f63cb&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?q=${this.props.searchText}&country=in&category=${this.props.category.toLowerCase()}&apiKey=7b0a48a77c594765b6efe8e35a68876b&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
+        this.props.setProgress(100);
         this.parsedData = await data.json();
 
         this.setState({
