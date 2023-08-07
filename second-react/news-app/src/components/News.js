@@ -33,7 +33,7 @@ export class News extends Component {
         this.setState({ loading: true });  // displaying spinner, before fetching data from api
 
         // fetching data from api
-        let url = `https://newsapi.org/v2/top-headlines?q=${this.props.searchText}&country=in&category=${this.props.category.toLowerCase()}&apiKey=90f92460b78b4a38a6e070c9417f63cb&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?q=${this.props.searchText}&country=in&category=${this.props.category.toLowerCase()}&apiKey=8fbd2a1f223847bd9f3576be6a585f47&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
@@ -54,7 +54,7 @@ export class News extends Component {
         const val = 1;  // to increse the page size
 
         // fetching data from api
-        let url = `https://newsapi.org/v2/top-headlines?q=${this.props.searchText}&country=in&category=${this.props.category.toLowerCase()}&apiKey=90f92460b78b4a38a6e070c9417f63cb&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
+        let url = `https://newsapi.org/v2/top-headlines?q=${this.props.searchText}&country=in&category=${this.props.category.toLowerCase()}&apiKey=8fbd2a1f223847bd9f3576be6a585f47&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
         this.parsedData = await data.json();
 
