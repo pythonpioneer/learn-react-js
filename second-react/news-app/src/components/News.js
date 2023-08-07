@@ -26,15 +26,17 @@ export class News extends Component {
             loading: true,
             page: 1,
         }
-    }
+    };
 
     // fetching data from api and loading spinner, when clicked on next, prev and refresh
     async updateApiData(val) {
+        this.props.setProgress(40);
         this.setState({ loading: true });  // displaying spinner, before fetching data from api
 
         // fetching data from api
         let url = `https://newsapi.org/v2/top-headlines?q=${this.props.searchText}&country=in&category=${this.props.category.toLowerCase()}&apiKey=8fbd2a1f223847bd9f3576be6a585f47&page=${this.state.page + val}&pageSize=${this.props.pageSize}`;
         let data = await fetch(url);
+        this.props.setProgress(100);
         this.parsedData = await data.json();
 
         this.setState({
@@ -68,8 +70,8 @@ export class News extends Component {
     render() {
         return (
             <>
-                <div className='container my-4'>
-                    <h2 className='container ml-4'>Top Headlines - {this.props.category === 'general' || this.props.category === "" ? "Global" : this.props.category}</h2>
+                <div className='my-4' style={{marginLeft: '5rem'}}>
+                    <h2 className='container'>Top Headlines - {this.props.category === 'general' || this.props.category === "" ? "Global" : this.props.category}</h2>
                 </div>
                 
                 {/* displaying loader when page refreshed */}
@@ -84,14 +86,14 @@ export class News extends Component {
                     <div className='container my-4'>
 
                         <div className="row">
-                            {!this.state.loading && this.state.articles?.map((element) => {
+                            {!this.state.loading && this.state?.articles?.map((element) => {
                                 return <div className="col-md-4 ml-sd-4" key={element.url}>
-                                    <NewsItem title={element.title}
-                                        desc={element.description}
-                                        imgUrl={element.urlToImage}
-                                        newsUrl={element.url}
-                                        authorName={element.source.name}
-                                        publishedAt={element.publishedAt}
+                                    <NewsItem title={element?.title}
+                                        desc={element?.description}
+                                        imgUrl={element?.urlToImage}
+                                        newsUrl={element?.url}
+                                        authorName={element?.source.name}
+                                        publishedAt={element?.publishedAt}
                                     />
                                 </div>
                             })}
