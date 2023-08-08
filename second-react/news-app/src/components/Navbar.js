@@ -18,7 +18,7 @@ export class Navbar extends Component {
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item active">
-                                <Link className="nav-link" to="/general" onClick={this.props.handleHomeCategory}>Home <span className="sr-only">(current)</span></Link>
+                                <Link className="nav-link" to="/" onClick={this.props.handleHomeCategory}>Home <span className="sr-only">(current)</span></Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link" to="/business" onClick={this.props.handleCategory}>Business</Link>

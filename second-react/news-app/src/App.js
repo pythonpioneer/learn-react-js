@@ -58,6 +58,8 @@ export default class App extends Component {
   render() {
     return (
       <>
+      {console.log(process.env.REACT_APP_NEWS_API_KEY)}
+      {console.log(process.env.NODE_ENV)}
         <LoadingBar
           color='#f11946'
           progress={this.state.progress}
@@ -68,16 +70,12 @@ export default class App extends Component {
 
           {/* the key is mentioned below is to reload the page */}
           <Route
-            exact path="/"
-            element={<News key={this.state.category} pageSize={this.state.pageSize} category={this.state.category} searchText={this.state.searchText} setProgress={this.setProgress}
-            />} />
-          <Route
             exact path="/search"
-            element={<News key={this.state.category + "search"} pageSize={this.state.pageSize} category={this.state.category} searchText={this.state.searchText}setProgress={this.setProgress}
+            element={<News key={this.state.category + "search"} pageSize={this.state.pageSize} category={this.state.category} searchText={this.state.searchText} setProgress={this.setProgress} newsApiKey={process.env.REACT_APP_NEWS_API_KEY}
             />} />
           <Route
-            exact path={"/" + this.state.category}
-            element={<News key={this.state.category} pageSize={this.state.pageSize} category={this.state.category} searchText={this.state.searchText} setProgress={this.setProgress}
+            exact path={this.state.category === "general" ? "/" : "/" + this.state.category}
+            element={<News key={this.state.category} pageSize={this.state.pageSize} category={this.state.category} searchText={this.state.searchText} setProgress={this.setProgress} newsApiKey={process.env.REACT_APP_NEWS_API_KEY}
             />} />
         </Routes>
       </>

@@ -13,7 +13,7 @@
 
 # misc
 .DS_Store
-.env.local
+# .env.local  # using to create environment variable
 .env.development.local
 .env.test.local
 .env.production.local
