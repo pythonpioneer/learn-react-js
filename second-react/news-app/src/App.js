@@ -68,15 +68,11 @@ export default class App extends Component {
 
           {/* the key is mentioned below is to reload the page */}
           <Route
-            exact path="/"
-            element={<News key={this.state.category} pageSize={this.state.pageSize} category={this.state.category} searchText={this.state.searchText} setProgress={this.setProgress}
-            />} />
-          <Route
             exact path="/search"
-            element={<News key={this.state.category + "search"} pageSize={this.state.pageSize} category={this.state.category} searchText={this.state.searchText}setProgress={this.setProgress}
+            element={<News key={this.state.category + "search"} pageSize={this.state.pageSize} category={this.state.category} searchText={this.state.searchText} setProgress={this.setProgress}
             />} />
           <Route
-            exact path={"/" + this.state.category}
+            exact path={this.state.category === "general" ? "/" : "/" + this.state.category}
             element={<News key={this.state.category} pageSize={this.state.pageSize} category={this.state.category} searchText={this.state.searchText} setProgress={this.setProgress}
             />} />
         </Routes>
