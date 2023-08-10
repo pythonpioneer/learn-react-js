@@ -22,7 +22,7 @@ export class News extends Component {
     constructor() {
         super();
         this.state = {
-            articles: null,
+            articles: null,  // empty array will be good in place of null.
             loading: true,
             page: 1,
         }
@@ -71,7 +71,8 @@ export class News extends Component {
         return (
             <>
                 <div className='my-4' style={{marginLeft: '5rem'}}>
-                    <h2 className='container'>Top Headlines - {this.props.category === 'general' || this.props.category === "" ? "Global" : this.props.category}</h2>
+                {this.parsedData?.articles == 0 ? <h2 className='container'>{this.props.category === 'general' || this.props.category === "" ? "Global" : this.props.category} - No Result Found for '{this.props.searchText}'</h2> :
+                    <h2 className='container'>Top Headlines - {this.props.category === 'general' || this.props.category === "" ? "Global" : this.props.category}</h2>}
                 </div>
                 
                 {/* displaying loader when page refreshed */}

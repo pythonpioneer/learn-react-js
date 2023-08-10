@@ -7,7 +7,7 @@ export class NewsItem extends Component {
     render() {
 
         // accessing some props
-        let { title, desc, newsUrl, imgUrl, authorName, publishedAt } = this.props;
+        let { title, desc, newsUrl, imgUrl, authorName, publishedAt} = this.props;
         let date = new Date(publishedAt);
 
         return (
@@ -26,6 +26,7 @@ export class NewsItem extends Component {
                     </div>
                 </div>
             </>
+            
         )
     }
 }
