@@ -58,8 +58,6 @@ export default class App extends Component {
   render() {
     return (
       <>
-      {console.log(process.env.REACT_APP_NEWS_API_KEY)}
-      {console.log(process.env.NODE_ENV)}
         <LoadingBar
           color='#f11946'
           progress={this.state.progress}
